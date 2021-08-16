@@ -8,7 +8,7 @@ fetch("http://localhost:3000/api/furniture")
     console.log(error);
     // cas d'erreur, site non disponible
     document.querySelector(".div__disponible").innerHTML += `<div class="text-center ">
-                                                                <h3>Site indisponible pour le moment</h3>
+                                                                <h3> <img src="./images/Dino.png" alt="Image dino" height="75px">  Site indisponible </h3>
                                                             </div>
                                                             `;
 })
@@ -16,7 +16,7 @@ fetch("http://localhost:3000/api/furniture")
 .then( jsonListFurniture => {
     for ( let jsonFurniture of  jsonListFurniture ){
         document.querySelector(".div__produit").innerHTML += 
-        `<div class="product ">
+        `<div class="product col-12 col-md-6 col-lg-4 col-xl-3 py-2">
             <div class="card article">
                 <img src="${jsonFurniture.imageUrl}" class="card-img-top">
                 <div class="card-body">
@@ -25,6 +25,7 @@ fetch("http://localhost:3000/api/furniture")
                 </div>
             </div>
         </div>`;
+        
 
         
     };
