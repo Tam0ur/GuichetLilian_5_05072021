@@ -8,7 +8,7 @@ fetch("http://localhost:3000/api/furniture")
     console.log(error);
     // cas d'erreur, site non disponible
     document.querySelector(".div__disponible").innerHTML += `<div class="text-center ">
-                                                                <h3> <img src="./images/Dino.png" alt="Image dino" height="75px">  Site indisponible </h3>
+                                                                <h3> <img src="./images/Dino.png" alt="Image dino" height="50px">  Site indisponible </h3>
                                                             </div>
                                                             `;
 })
@@ -22,12 +22,10 @@ fetch("http://localhost:3000/api/furniture")
                 <div class="card-body">
                     <h5 class="card-title ">${jsonFurniture.name}</h5>
                     <p class="card-text">${jsonFurniture.price/100 + ',00 €'}</p>
+                    <a href="./pages/panier.html?id=${jsonFurniture._id}" >Ajouter au panier</a>
                 </div>
             </div>
         </div>`;
-        
-
-        
     };
 })
 .catch((error) => {
