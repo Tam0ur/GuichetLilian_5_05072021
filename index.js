@@ -22,7 +22,7 @@ fetch("http://localhost:3000/api/furniture")
                 <div class="card-body">
                     <h5 class="card-title ">${jsonFurniture.name}</h5>
                     <p class="card-text">${jsonFurniture.price/100 + ',00 €'}</p>
-                    <a href="./pages/panier.html?id=${jsonFurniture._id}" >Ajouter au panier</a>
+                    <a href="./pages/produit.html?id=${jsonFurniture._id}" >Voir le produit</a>
                 </div>
             </div>
         </div>`;
