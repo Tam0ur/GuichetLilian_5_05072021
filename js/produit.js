@@ -25,7 +25,7 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
         </div>
     </div>
     <div class="py-2">
-        <a href="#" class="btn btn-outline-primary" role="button" >Ajouter au panier</a>
+        <a href="./pages/panier.html?id=${id}" class="btn btn-outline-primary" role="button" >Ajouter au panier</a>
     </div>
     `;
 })
