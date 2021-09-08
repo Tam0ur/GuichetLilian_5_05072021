@@ -1,7 +1,7 @@
 //PRODUIT
 
 //SCRIPT E-COMMERCE
-const produit
+
 
 const searchParams = new URLSearchParams(window.location.search);
 const id = searchParams.get('id')
@@ -18,6 +18,17 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
 })
 
 .then( produit => {
+  document.querySelector(".div__produit").innerHTML +=
+    `<div class="card article product">
+      <img src="${produit.imageUrl}" class="card-img-top img-product">
+      <div class="card-body">
+        <h5 class="card-title ">${produit.name}</h5>
+        <p class="card-text">${produit.price/100 + ',00 €'}</p>
+        <a href="#" class="btn btn-primary">Button</a>
+      </div>
+    </div>
+    `;
+
   //ajout produit sur page
   const button = document.getElementById('addcart')
 
@@ -34,14 +45,18 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
   
     localStorage.setItem('cart', JSON.stringify(cart))
   })
+  /*const cart = JSON.parse(localStorage.getItem('cart')) || []
+  foreach( produit of cart){
+    document.getElementById('cart').innerHTML += ''
+  }*/
+})
+.catch( (error) => {
+  console.log(error)
 })
 
 //panier
-/*
-const cart = JSON.parse(localStorage.getItem('cart')) || []
-foreach(const product of cart) {
-  document.getElementById('cart').innerHTML += ''
-}*/
+
+
 
 
 
