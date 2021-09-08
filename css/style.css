@@ -1,3 +1,12 @@
+.product{
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.img-product{
+  width: 30% !important;
+}
+
 .div__produit{
   margin-right: 0 !important;
   margin-left: 0 !important;
