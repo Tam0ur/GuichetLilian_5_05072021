@@ -21,10 +21,10 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
   document.querySelector(".div__produit").innerHTML +=
     `<div class="card article product">
       <img src="${produit.imageUrl}" class="card-img-top img-product">
-      <div class="card-body">
+      <div class="card-body cart ">
         <h5 class="card-title ">${produit.name}</h5>
         <p class="card-text">${produit.price/100 + ',00 €'}</p>
-        <a href="#" class="btn btn-primary">Button</a>
+        <a href="#" class="btn btn-primary addcart ">Button</a>
       </div>
     </div>
     `;
@@ -39,15 +39,17 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
     if (finded) {
       finded.quantity += 1
     }
-    else 
+    else {
       produit.quantity += 1
-      cacart.push(produit)
-  
+      cart.push(produit)
+    }
     localStorage.setItem('cart', JSON.stringify(cart))
+    document.getElementById('cart').innerHTML += ''
   })
+  
   /*const cart = JSON.parse(localStorage.getItem('cart')) || []
   foreach( produit of cart){
-    document.getElementById('cart').innerHTML += ''
+    
   }*/
 })
 .catch( (error) => {
