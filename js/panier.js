@@ -3,6 +3,8 @@
 
 //SCRIPT E-COMMERCE
 const cart = JSON.parse(localStorage.getItem('cart')) || []
+const productsId = []
+let total = 0;
 if ( cart.length == 0 ){
   document.querySelector(".div__produit").innerHTML +=
     `<div class="card article product">
@@ -13,7 +15,8 @@ if ( cart.length == 0 ){
 }
 else {
   for( let produit of cart){
-    
+    productsId.push(produit._id)
+    total += (produit.quantity*produit.price)/100
       document.querySelector(".div__produit").innerHTML +=
       `<div class="card article product">
         <img src="${produit.imageUrl}" class="card-img-top img-product">
@@ -26,20 +29,19 @@ else {
         <button  onclick="remove_product('${produit._id}');" class="btn btn-outline-primary" >Supprimer</button>
       </div>`;
   }
+  localStorage.setItem('total',total);
 }
 
 let productKey = localStorage.key['']
-     function remove_product(productKey) {
-        //localStorage.clear()
-        localStorage.removeItem(productKey);
-        window.location.reload();
-    };
+  function remove_product(productKey) {
+      //localStorage.clear()
+      cart.splice(cart.findIndex(item => item._id == productKey ), 1)
+      localStorage.setItem('cart',JSON.stringify(cart))
+      window.location.reload();
+  };
 
 
 
-function redirection(){
-   window.location.href = '../pages/confirmation.html'
-}
 
 
 // CHAMPS INVALIDES DANS FORMULAIRE
@@ -55,26 +57,41 @@ function redirection(){
             event.preventDefault();
             event.stopPropagation();
           }
+
           else {
             event.preventDefault();
             form.classList.add('was-validated')
+            if (form.classList.contains('was-validated') === true ){ 
+
+              fetch('http://localhost:3000/api/furniture/order', {
+                method: 'POST',
+                body: JSON.stringify({
+                  products: productsId,
+
+                  contact: {
+                    firstName: document.getElementById('inputFName').value,
+                    lastName:document.getElementById('inputLName').value,
+                    address:document.getElementById('inputAddress').value,
+                    city:document.getElementById('inputCity').value,
+                    email:document.getElementById('inputEmail').value,
+                  }
+                })
+              })
+              .then(rep => rep.json())
+              .then(data => {
+                
+                let stringData = JSON.stringify(data)
+                localStorage.setItem( 'rep',stringData)
+                //localStorage.removeItem('cart')
+                //window.location.href = '../pages/confirmation.html'
+                
+              })
+              .catch((error) => {
+                console.error('Error : ',error)
+              })
+            }
           }
-          if (form.classList.contains('was-validated') === true ){ 
-            redirection();
-            fetch('http://localhost:3000/api/furniture', {
-              method: 'POST',
-              body: JSON.stringify(data)
-            })
-            .then(rep => rep.json())
-            .then(data => {
-              let stringData = JSON.stringify(data)
-              localStorage.setItem( rep,stringData)
-              document.location.href = '../pages/confirmation.html'
-            })
-            .catch((error) => {
-              console.error('Error : ',error)
-            })
-          }
+          
         }, false);
       });
     }, false);
