@@ -6,7 +6,7 @@ let total = JSON.parse(localStorage.getItem('total'))
 
 
 document.querySelector(".total").innerHTML +=
-`<p>Test : ${total/100 + ',00 €'}</p>`;
+`<p>Test : ${total + ',00 €'}</p>`;
 document.querySelector(".orderId").innerHTML +=
 `<p>Identifiant : ${data.orderId}</p>`;
 

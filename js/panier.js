@@ -18,7 +18,7 @@ else {
     productsId.push(produit._id)
     total += (produit.quantity*produit.price)/100
       document.querySelector(".div__produit").innerHTML +=
-      `<div class="card article product">
+      `<div class="card article product ">
         <img src="${produit.imageUrl}" class="card-img-top img-product">
         <div class="card-body cart ">
           <h5 class="card-title ">${produit.name}</h5>
@@ -29,6 +29,12 @@ else {
         <button  onclick="remove_product('${produit._id}');" class="btn btn-outline-primary" >Supprimer</button>
       </div>`;
   }
+  document.querySelector(".div__total").innerHTML += 
+  `<div class="card article product">
+      <div class="card-body cart ">
+        <p class="card-text">Total panier : ${total + ',00 €'} </p>
+      </div>
+    </div>`;
   localStorage.setItem('total',total);
 }
 
