@@ -89,7 +89,7 @@ let productKey = localStorage.key['']
                 let stringData = JSON.stringify(data)
                 localStorage.setItem( 'rep',stringData)
                 //localStorage.removeItem('cart')
-                //window.location.href = '../pages/confirmation.html'
+                window.location.href = '../pages/confirmation.html'
                 
               })
               .catch((error) => {

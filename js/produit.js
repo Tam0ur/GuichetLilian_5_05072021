@@ -58,6 +58,3 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
 
 
 //gérer plusieurs produits
-
-
-  
