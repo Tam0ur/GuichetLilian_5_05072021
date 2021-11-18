@@ -1,11 +1,14 @@
 //PANIER
 
+//reception paramètres + id du produit
 const searchParams = new URLSearchParams(window.location.search);
 const id = searchParams.get('id')
 
 //appel api avec id
 fetch(`http://localhost:3000/api/furniture/${id}`)
+//conversion en format json
 .then( data => data.json() )
+//gestion en cas d'erreur de l'appel
 .catch( (error) => {
     console.log(error);
     document.querySelector(".div__disponible").innerHTML += `<div class="text-center ">
@@ -13,10 +16,8 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
                                                             </div>
                                                             `;
 })
-
+//affichage du produit 
 .then ( produit => {
-  
-
   document.querySelector(".div__produit").innerHTML +=
   `<div class="card article ">
       <img src="${produit.imageUrl}" class="card-img-top">
@@ -26,6 +27,7 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
       </div>
   </div>
   `;
+  //affichage de tous les vernis dispobibles
   for ( let varnish of produit.varnish ){
     document.querySelector(".select").innerHTML += 
     `<option value="${varnish}">${varnish}</option>`;
@@ -33,7 +35,7 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
 
   
 
-  //ajout produit sur page
+  //ajout produit sur panier
   const button = document.getElementById('addcart')
 
   button.addEventListener('click', (e) => {
@@ -56,5 +58,3 @@ fetch(`http://localhost:3000/api/furniture/${id}`)
     console.log(error)
 })
 
-
-//gérer plusieurs produits

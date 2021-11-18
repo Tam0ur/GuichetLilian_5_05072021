@@ -2,9 +2,12 @@
 
 
 //SCRIPT E-COMMERCE
+
+//déclaration panier + tableau produits + total
 const cart = JSON.parse(localStorage.getItem('cart')) || []
 const productsId = []
 let total = 0;
+//gestion du panier vide
 if ( cart.length == 0 ){
   document.querySelector(".div__produit").innerHTML +=
     `<div class="card article product">
@@ -13,6 +16,7 @@ if ( cart.length == 0 ){
       </div>
     </div>`;
 }
+//sinon affichage du panier 
 else {
   for( let produit of cart){
     productsId.push(produit._id)
@@ -29,6 +33,7 @@ else {
         <button  onclick="remove_product('${produit._id}');" class="btn btn-outline-primary" >Supprimer</button>
       </div>`;
   }
+  //affichage du total du panier
   document.querySelector(".div__total").innerHTML += 
   `<div class="card article product">
       <div class="card-body cart ">
@@ -38,6 +43,7 @@ else {
   localStorage.setItem('total',total);
 }
 
+//fonction suppression
 let productKey = localStorage.key['']
   function remove_product(productKey) {
       //localStorage.clear()
@@ -45,9 +51,6 @@ let productKey = localStorage.key['']
       localStorage.setItem('cart',JSON.stringify(cart))
       window.location.reload();
   };
-
-
-
 
 
 // CHAMPS INVALIDES DANS FORMULAIRE
@@ -59,11 +62,12 @@ let productKey = localStorage.key['']
       // Loop over them and prevent submission
       var validation = Array.prototype.filter.call(forms, function(form) {
         form.addEventListener('submit', function(event) {
+          //si le formulaire n'est pas valide
           if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
           }
-
+          //sinon envoi des données du formulaire au backend
           else {
             event.preventDefault();
             form.classList.add('was-validated')
@@ -71,6 +75,9 @@ let productKey = localStorage.key['']
 
               fetch('http://localhost:3000/api/furniture/order', {
                 method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },                
                 body: JSON.stringify({
                   products: productsId,
 
@@ -88,7 +95,7 @@ let productKey = localStorage.key['']
                 
                 let stringData = JSON.stringify(data)
                 localStorage.setItem( 'rep',stringData)
-                //localStorage.removeItem('cart')
+                localStorage.removeItem('cart')
                 window.location.href = '../pages/confirmation.html'
                 
               })
