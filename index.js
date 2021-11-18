@@ -12,7 +12,7 @@ fetch("http://localhost:3000/api/furniture")
                                                             </div>
                                                             `;
 })
-
+//affichage de tous les produits disponibles
 .then( jsonListFurniture => {
     for ( let jsonFurniture of  jsonListFurniture ){
         document.querySelector(".div__produit").innerHTML += 
